@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactHtmlParser from 'react-html-parser';
 
 class OptionsForm extends Component {
   static defaultProps = {
@@ -32,7 +33,7 @@ class OptionsForm extends Component {
                            checked={this.state.selectedOption === option}
                            onChange={this.handleChange}
         />
-        {option}
+        {ReactHtmlParser(option)}
       </label>
     ));
     return (
