@@ -16,7 +16,13 @@ class GamePlay extends Component {
     this.state = {
       questions: [],
       gameState: QUESTIONSTATE.QUESTION,
-      currentQuestionIndex: 0
+      currentQuestionIndex: 0,
+    }
+    this.gameStatus = {
+      correct_answers: 0,
+      incorrect_answers: 0,
+      points: 0,
+      max_points: this.props.instructions.num_questions * 10
     }
     this.answerChecked = this.answerChecked.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
@@ -35,12 +41,19 @@ class GamePlay extends Component {
 
   answerChecked(gotRight) {
     this.setState({gameState: (gotRight ? QUESTIONSTATE.CORRECT : QUESTIONSTATE.INCORRECT)});
+    if(gotRight) {
+      this.gameStatus.correct_answers += 1;
+      this.gameStatus.points += 10;
+    } else {
+      this.gameStatus.incorrect_answers += 1;
+      this.gameStatus.points -= 5;
+    }
   }
 
   nextQuestion() {
     const {questions, currentQuestionIndex} = this.state;
     if (currentQuestionIndex === questions.length - 1) {
-      this.props.gameOver();
+      this.props.gameOver(this.gameStatus);
     } else {
       this.setState(prevState => ({
         currentQuestionIndex: prevState.currentQuestionIndex + 1,

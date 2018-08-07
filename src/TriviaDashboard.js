@@ -16,6 +16,7 @@ class TriviaDashboard extends Component {
       instructions: {},
       gameState: GAME_STATE.NOT_STARTED
     }
+    this.finalScores = {};
     this.startGame = this.startGame.bind(this);
     this.gameOver = this.gameOver.bind(this);
     this.goHome = this.goHome.bind(this);
@@ -25,7 +26,8 @@ class TriviaDashboard extends Component {
     this.setState({gameState: GAME_STATE.NOT_STARTED});
   }
 
-  gameOver() {
+  gameOver(gameStatus) {
+    this.finalScores = gameStatus;
     this.setState({gameState: GAME_STATE.ENDED});
   }
 
@@ -41,7 +43,7 @@ class TriviaDashboard extends Component {
           <Form startGame = {this.startGame}/> :
           (gameState === GAME_STATE.STARTED) ?
           <GamePlay gameOver={this.gameOver} instructions={instructions} /> :
-          <GameSummary goHome = {this.goHome}/> }
+          <GameSummary goHome = {this.goHome} finalScores = {this.finalScores}/> }
       </div>
     )
   }
