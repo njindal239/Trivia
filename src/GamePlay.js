@@ -40,7 +40,7 @@ class GamePlay extends Component {
   nextQuestion() {
     const {questions, currentQuestionIndex} = this.state;
     if (currentQuestionIndex === questions.length - 1) {
-    //  this.props.gameOver();
+      this.props.gameOver();
     } else {
       this.setState(prevState => ({
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
