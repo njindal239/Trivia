@@ -21,8 +21,8 @@ class Form extends Component {
   }
 
   handleChange(e) {
+    console.log(e.target.value);
     this.setState({[e.target.name]: e.target.value}, function() {
-      console.log(this.state);
     });
   }
 
@@ -65,13 +65,14 @@ class Form extends Component {
           </div>
             <div className='form-group'>
               <label className="col-sm-2 control-label"> "Type of Questions" </label>
-              <select name='difficulty'
+              <select name='type'
                       className="form-control col-sm-10"
                       onChange = {this.handleChange} >
                 <option value='multiple'> Multiple Choice </option>
                 <option value='boolean'> True/False </option>
               </select>
             </div>
+            <button> Go Test Yourself </button>
         </form>
       </div>
     );
