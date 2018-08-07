@@ -53,12 +53,18 @@ class GamePlay extends Component {
     const {gameState, questions, currentQuestionIndex} = this.state;
     let componentToRender;
     const currentQuestion = questions[currentQuestionIndex];
-    if (gameState === QUESTIONSTATE.QUESTION) {
-      componentToRender = <Question answerChecked={this.answerChecked} ques={currentQuestion} />
-    } else if (gameState === QUESTIONSTATE.CORRECT) {
-      componentToRender = <CorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
-    } else {
-      componentToRender = <IncorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
+    switch(gameState) {
+      case QUESTIONSTATE.QUESTION:
+        componentToRender = <Question answerChecked={this.answerChecked} ques={currentQuestion} />;
+        break;
+      case QUESTIONSTATE.CORRECT:
+        componentToRender = <CorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>;
+        break;
+      case QUESTIONSTATE.INCORRECT:
+        componentToRender = <IncorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
+        break;
+      default:
+        assert(false);
     }
     return (
       <div>
