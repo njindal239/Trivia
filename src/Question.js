@@ -24,11 +24,13 @@ class Question extends Component {
   }
 
   render() {
-    console.log(this.props);
+    const {ques} = this.props;
+    const quesForm = ques ?
+        (<h3> {ques.question} </h3>,
+        <OptionsForm checkAnswer={this.checkAnswer} options={this.makeOptions()} />) : null;
     return(
       <div>
-        <h3> {this.props.ques.question} </h3>
-        <OptionsForm checkAnswer={this.checkAnswer} options={this.makeOptions()} />
+        {quesForm}
       </div>
     );
   }

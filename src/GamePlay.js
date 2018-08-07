@@ -2,16 +2,29 @@ import React, {Component} from 'react';
 import Question from './Question';
 import CorrectAnswer from './CorrectAnswer';
 import IncorrectAnswer from './IncorrectAnswer';
+import axios from 'axios';
 
 class GamePlay extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      questions: [],
       gameState: 'question',
-      currentQuestion: 0
+      currentQuestionIndex: 0
     }
     this.answerChecked = this.answerChecked.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+  }
+
+  componentDidMount() {
+    const {num_questions, category, difficulty, type} = this.props.instructions;
+    console.log(num_questions, category, difficulty, type);
+    const url = `https://opentdb.com/api.php?amount=${num_questions}&category=${category}&difficulty=${difficulty}&type=${type}`;
+    console.log(url);
+    axios.get(url)
+    .then(res => res.data)
+    .then(data => data.results)
+    .then(questions => this.setState({questions}));
   }
 
   answerChecked(gotRight) {
@@ -23,9 +36,9 @@ class GamePlay extends Component {
   }
 
   render() {
-    const {gameState} = this.state;
+    const {gameState, questions, currentQuestionIndex} = this.state;
     let componentToRender;
-    const currentQuestion = this.props.questions[this.state.currentQuestion]
+    const currentQuestion = questions[currentQuestionIndex];
     if (gameState === "question") {
       componentToRender = <Question answerChecked={this.answerChecked} ques={currentQuestion} />
     } else if (gameState === "correct") {
