@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import shuffle from 'shuffle-array';
 import OptionsForm from './OptionsForm';
 import ReactHtmlParser from 'react-html-parser';
+import './Question.css';
 
 class Question extends Component {
 
@@ -30,7 +31,10 @@ class Question extends Component {
       <div>
         <h3> {ReactHtmlParser(ques.question)} </h3>
         <OptionsForm checkAnswer={this.checkAnswer} options={this.makeOptions()} />
-      </div> : null;
+      </div> :
+      <div className = 'container1'>
+        <div className = 'loader'> </div>
+      </div>;
     console.log(quesForm);
     return(
       <div>
