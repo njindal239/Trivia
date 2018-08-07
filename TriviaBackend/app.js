@@ -1,15 +1,21 @@
 const app = require('express')();
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
+const helpers = require('./helpers/user.js');
+const session = require('express-session');
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+  secret: "this user has been logged in",
+  saveUninitialized: false,
+  resave: false
+}));
 
-app.post('/login', (req, res) => {
 
-});
+app.route('/login')
+  .post(helpers.loginUser);
 
-app.post('/register', (req, res) => {
-  
-});
+app.route('/register')
+  .post(helpers.registerUser);
 
 
 app.listen(3001, () => {
