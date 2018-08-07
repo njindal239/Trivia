@@ -64,7 +64,7 @@ class GamePlay extends Component {
         componentToRender = <IncorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
         break;
       default:
-        assert(false);
+        // NOT POSSIBLE
     }
     return (
       <div>
