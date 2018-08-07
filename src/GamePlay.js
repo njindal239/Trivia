@@ -4,12 +4,18 @@ import CorrectAnswer from './CorrectAnswer';
 import IncorrectAnswer from './IncorrectAnswer';
 import axios from 'axios';
 
+const QUESTIONSTATE = {
+  QUESTION: 0,
+  CORRECT: 1,
+  INCORRECT: 2
+}
+
 class GamePlay extends Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [],
-      gameState: 'question',
+      gameState: QUESTIONSTATE.QUESTION,
       currentQuestionIndex: 0
     }
     this.answerChecked = this.answerChecked.bind(this);
@@ -28,20 +34,28 @@ class GamePlay extends Component {
   }
 
   answerChecked(gotRight) {
-    this.setState({gameState: (gotRight ? 'correct' : 'incorrect')});
+    this.setState({gameState: (gotRight ? QUESTIONSTATE.CORRECT : QUESTIONSTATE.INCORRECT)});
   }
 
   nextQuestion() {
-
+    const {questions, currentQuestionIndex} = this.state;
+    if (currentQuestionIndex === questions.length - 1) {
+    //  this.props.gameOver();
+    } else {
+      this.setState(prevState => ({
+        currentQuestionIndex: prevState.currentQuestionIndex + 1,
+        gameState: QUESTIONSTATE.QUESTION
+      }));
+    }
   }
 
   render() {
     const {gameState, questions, currentQuestionIndex} = this.state;
     let componentToRender;
     const currentQuestion = questions[currentQuestionIndex];
-    if (gameState === "question") {
+    if (gameState === QUESTIONSTATE.QUESTION) {
       componentToRender = <Question answerChecked={this.answerChecked} ques={currentQuestion} />
-    } else if (gameState === "correct") {
+    } else if (gameState === QUESTIONSTATE.CORRECT) {
       componentToRender = <CorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
     } else {
       componentToRender = <IncorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
