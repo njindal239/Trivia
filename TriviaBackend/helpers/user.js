@@ -1,52 +1,54 @@
 const bcrypt = require('bcrypt');
 const db = require('../models');
+const jwt = require('jsonwebtoken');
 
 const NUM_SALT_ROUNDS = 10;
 
-exports.loginUser = async (req, res) => {
-  const user = await findUser(req.body.username);
-  if (!user) {
-    return res.json("No user with given username found!");
+exports.loginUser = async (req, res, next) => {
+  try {
+    let user = await db.User.findOne({username: req.body.username});
+    let {_id, username, lastName} = user;
+    let isValid = await user.comparePassword(req.body.password);
+    if (isValid) {
+      let token = jwt.sign({
+        _id, username, lastName
+      }, process.env.SECRET_KEY);
+      return res.status(200).json({_id, username, lastName, token});
+    }
+    else {
+      return next({
+        status: 400,
+        message: "Password is incorrect!"
+      });
+    }
+  } catch(err) {
+    return next({
+      status: 400,
+      message: "Username is incorrect!"
+    })
   }
-  const isValid = await validateUserPassword(req.body.password, user.password);
-  if (isValid) {
-    req.session.user = user;
-    res.json('Successfully logged in!!');
-  } else {
-    res.json("Incorrect password");
+
+}
+
+exports.registerUser = async (req, res, next) => {
+  try {
+    console.log(req.body);
+    let user = await db.User.create(req.body);
+    console.log(req.body);
+    let {_id, username, lastName} = user;
+    // jwt.sign: 1st argument is payload, 2nd is SECRET_KEY
+    let token = jwt.sign({
+      _id, username, lastName
+    }, process.env.SECRET_KEY);
+    return res.status(201).json({_id, username, lastName, token});
+
+  } catch(err) {
+    if (err.code === 11000) {   //err code is 11000 if a validation fails
+      err.message = "Sorry, your username and/or email is taken!";
+    }
+    return next({
+      status: 400,
+      message: err.message
+    });
   }
-}
-
-exports.registerUser = async (req, res) => {
-  let {firstName, lastName, age, username, email} = req.body;
-  let password = await bcryptHash(req.body.password);
-  let user = {firstName, lastName, age, username, email, password};
-  console.log("password is: " + password);
-  db.User.create(user)
-  .then(user => {
-    console.log("User successfully registered!");
-    res.status(201).json(user);
-  }).catch(err => {
-    console.log("Error occurred while registering the user!!");
-    console.log(err);
-  });
-
-}
-
-const findUser = username => {
-  return db.User.findOne({username})
-  .then(user => user)
-  .catch(err => console.log(err));
-}
-
-const validateUserPassword = (password, hash) => {
-  return bcrypt.compare(password, hash)
-  .then(res => (res ? true : false))
-  .catch(err => console.log(err));
-}
-
-const bcryptHash = password => {
-  return bcrypt.hash(password, NUM_SALT_ROUNDS)
-  .then(hash => hash)
-  .catch(err => console.log(err));
 }
