@@ -6,7 +6,7 @@ const session = require('express-session');
 const errorHandler = require('./helpers/error.js');
 const cors = require('cors');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(cors());
 
 app.use(function(req, res, next) {
