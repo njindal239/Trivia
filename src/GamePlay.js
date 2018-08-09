@@ -26,6 +26,7 @@ class GamePlay extends Component {
     }
     this.answerChecked = this.answerChecked.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
+    this.addFavorite = this.addFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +38,18 @@ class GamePlay extends Component {
     .then(res => res.data)
     .then(data => data.results)
     .then(questions => this.setState({questions}));
+  }
+
+  addFavorite(ques) {
+    let url = `http://localhost:3001/users/${this.props.user._id}/questions`;
+    axios.post(url, {
+      question: ques.question,
+      incorrect_answers: ques.incorrect_answers,
+      correct_answer: ques.correct_answer
+    })
+    .then(res => res.data)
+    .then(data => console.log("Successfully Added to Favorites"))
+    .catch(err => console.log(err));
   }
 
   answerChecked(gotRight) {
@@ -68,7 +81,7 @@ class GamePlay extends Component {
     const currentQuestion = questions[currentQuestionIndex];
     switch(gameState) {
       case QUESTIONSTATE.QUESTION:
-        componentToRender = <Question answerChecked={this.answerChecked} ques={currentQuestion} />;
+        componentToRender = <Question addFavorite={this.addFavorite} answerChecked={this.answerChecked} ques={currentQuestion} />;
         break;
       case QUESTIONSTATE.CORRECT:
         componentToRender = <CorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>;

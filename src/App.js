@@ -15,14 +15,13 @@ class App extends Component {
     };
     this.loggedIn = this.loggedIn.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
+    // this.logout = this.logout.bind(this);
   }
 
   componentWillMount() {
     this.setState({
       isAuthenticated: sessionStorage.getItem('isAuthenticated') || false,
       user: JSON.parse(sessionStorage.getItem('user')) || {}
-    }, () => {
-      console.log(this.state);
     });
   }
 
@@ -31,6 +30,12 @@ class App extends Component {
     sessionStorage.setItem('isAuthenticated', true);
     sessionStorage.setItem('user', JSON.stringify(user));
   }
+
+  // logout() {
+  //   this.setState({isAuthenticated: false, user: {}});
+  //   sessionStorage.setItem('isAuthenticated', false);
+  //   sessionStorage.setItem('user', JSON.stringify({}));
+  // }
 
   isLoggedIn = () => {
     return this.state.isAuthenticated;

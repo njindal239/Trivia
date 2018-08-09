@@ -51,7 +51,7 @@ class TriviaDashboard extends Component {
       { (gameState === GAME_STATE.NOT_STARTED) ?
           <Form startGame = {this.startGame}/> :
           (gameState === GAME_STATE.STARTED) ?
-          <GamePlay gameOver={this.gameOver} instructions={instructions} /> :
+          <GamePlay user={this.props.user} gameOver={this.gameOver} instructions={instructions} /> :
           <GameSummary goHome = {this.goHome} finalScores = {this.finalScores}/> }
       </div>
     )
