@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Form from './Form';
 import GamePlay from './GamePlay';
 import GameSummary from './GameSummary';
+import axios from 'axios';
 
 const GAME_STATE = {
   NOT_STARTED: 0,
@@ -29,6 +30,14 @@ class TriviaDashboard extends Component {
   gameOver(gameStatus) {
     this.finalScores = gameStatus;
     this.setState({gameState: GAME_STATE.ENDED});
+    console.log(this.props.user._id);
+    let url = 'http://localhost:3001/users/' + this.props.user._id;
+    console.log("Displaying final scores: ");
+    console.log(this.finalScores);
+    axios.put(url, {...this.finalScores})
+    .then(res => res.data)
+    .then(user => console.log(user))
+    .catch(err => console.log(err.response.data.error));
   }
 
   startGame(instructions) {

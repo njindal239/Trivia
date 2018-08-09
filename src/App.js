@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TriviaDashboard from './TriviaDashboard';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect, Link} from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import './App.css';
@@ -8,27 +8,61 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
+    console.log("Hi");
     this.state = {
       isAuthenticated: false,
       user: {}
-    }
+    };
     this.loggedIn = this.loggedIn.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      isAuthenticated: sessionStorage.getItem('isAuthenticated') || false,
+      user: JSON.parse(sessionStorage.getItem('user')) || {}
+    }, () => {
+      console.log(this.state);
+    });
   }
 
   loggedIn(user) {
     this.setState({isAuthenticated: true, user: user});
+    sessionStorage.setItem('isAuthenticated', true);
+    sessionStorage.setItem('user', JSON.stringify(user));
+  }
+
+  isLoggedIn = () => {
+    return this.state.isAuthenticated;
   }
 
   render() {
     return (
       <div className="App">
+        {this.isLoggedIn() ?
+          <div>
+            <Link to='/'> Game Dashboard </Link>
+            <Link to='/logout'> Logout </Link>
+          </div> :
+          <div>
+            <Link to='/login'> Login </Link>
+            <Link to='/signup'> Sign Up </Link>
+          </div> }
         <Switch>
-          <Route path='/' exact component = {TriviaDashboard} />
+          <Route path='/' exact render = {props => (
+            this.isLoggedIn() ?
+              <TriviaDashboard {...props} user={this.state.user} /> :
+              <Redirect to='/login' />
+          )} />
           <Route path='/signup' exact render = {props => (
-            <Signup {...props} loggedIn={this.loggedIn} />
+            !this.isLoggedIn() ?
+              <Signup {...props} loggedIn={this.loggedIn} /> :
+              <Redirect to='/' />
           )} />
           <Route path='/login' exact render = {props => (
-            <Login {...props} loggedIn={this.loggedIn} />
+            !this.isLoggedIn() ?
+              <Login {...props} loggedIn={this.loggedIn} /> :
+              <Redirect to='/' />
           )} />
         </Switch>
       </div>

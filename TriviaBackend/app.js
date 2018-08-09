@@ -28,6 +28,9 @@ app.route('/login')
 app.route('/register')
   .post(helpers.registerUser);
 
+app.route('/users/:id')
+	.put(helpers.updateUserGameLife)
+
 
 app.use((req, res, next) => {
   let err = new Error("Not Found!");
