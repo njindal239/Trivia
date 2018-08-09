@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Question = require('./question.js');
 
 const NUM_SALT_ROUNDS = 10;
 
@@ -18,7 +19,8 @@ const UserSchema = mongoose.Schema({
     net_points: {type: Number, default: 0},
     max_points: {type: Number, default: 0},
     percentage: {type: Number, default: 0}
-  }
+  },
+  questions: [Question.questionSchema]
 });
 
 UserSchema.pre('save', async function(next) {

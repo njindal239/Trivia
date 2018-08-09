@@ -1,12 +1,14 @@
 require('dotenv').config();   // loads all the environment variables
 const app = require('express')();
 const bodyParser = require('body-parser');
-const helpers = require('./helpers/user.js');
+const userHelpers = require('./helpers/user.js');
+const questionHelpers = require('./helpers/question.js');
 const session = require('express-session');
 const errorHandler = require('./helpers/error.js');
 const cors = require('cors');
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 app.use(function(req, res, next) {
@@ -23,13 +25,16 @@ app.use(session({
 
 
 app.route('/login')
-  .post(helpers.loginUser);
+  .post(userHelpers.loginUser);
 
 app.route('/register')
-  .post(helpers.registerUser);
+  .post(userHelpers.registerUser);
 
 app.route('/users/:id')
-	.put(helpers.updateUserGameLife)
+	.put(userHelpers.updateUserGameLife);
+
+app.route('/users/:id/questions')
+	.post(questionHelpers.addQuestion);
 
 
 app.use((req, res, next) => {
