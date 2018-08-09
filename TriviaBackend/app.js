@@ -34,8 +34,8 @@ app.route('/users/:id')
 	.put(userHelpers.updateUserGameLife);
 
 app.route('/users/:id/questions')
-	.post(questionHelpers.addQuestion);
-
+	.post(questionHelpers.addQuestion)
+	.get(questionHelpers.getQuestions);
 
 app.use((req, res, next) => {
   let err = new Error("Not Found!");

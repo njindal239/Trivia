@@ -15,12 +15,16 @@ class TriviaDashboard extends Component {
     super(props);
     this.state = {
       instructions: {},
-      gameState: GAME_STATE.NOT_STARTED
+      gameState: this.props.favGame ? GAME_STATE.STARTED : GAME_STATE.NOT_STARTED
     }
     this.finalScores = {};
     this.startGame = this.startGame.bind(this);
     this.gameOver = this.gameOver.bind(this);
     this.goHome = this.goHome.bind(this);
+    // if (this.props.favGame) {
+    //   console.log("coming");
+    //   this.setState({gameState: GAME_STATE.STARTED});
+    // }
   }
 
   goHome() {
@@ -51,7 +55,7 @@ class TriviaDashboard extends Component {
       { (gameState === GAME_STATE.NOT_STARTED) ?
           <Form startGame = {this.startGame}/> :
           (gameState === GAME_STATE.STARTED) ?
-          <GamePlay user={this.props.user} gameOver={this.gameOver} instructions={instructions} /> :
+          <GamePlay user={this.props.user} gameOver={this.gameOver} instructions={instructions} favGame={this.props.favGame}/> :
           <GameSummary goHome = {this.goHome} finalScores = {this.finalScores}/> }
       </div>
     )

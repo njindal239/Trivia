@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TriviaDashboard from './TriviaDashboard';
+import Game from './Game';
 import {Switch, Route, Redirect, Link} from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
@@ -56,7 +56,7 @@ class App extends Component {
         <Switch>
           <Route path='/' exact render = {props => (
             this.isLoggedIn() ?
-              <TriviaDashboard {...props} user={this.state.user} /> :
+              <Game {...props} user={this.state.user} /> :
               <Redirect to='/login' />
           )} />
           <Route path='/signup' exact render = {props => (
