@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Game from './Game';
-import {Switch, Route, Redirect, Link} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
+import Navbar from './Navbar';
 import './App.css';
 
 class App extends Component {
@@ -44,15 +45,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.isLoggedIn() ?
-          <div>
-            <Link to='/'> Game Dashboard </Link>
-            <Link to='/logout'> Logout </Link>
-          </div> :
-          <div>
-            <Link to='/login'> Login </Link>
-            <Link to='/signup'> Sign Up </Link>
-          </div> }
+        <Navbar isLoggedIn={this.isLoggedIn}/>
         <Switch>
           <Route path='/' exact render = {props => (
             this.isLoggedIn() ?

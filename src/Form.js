@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Form.css';
 
 const CATEGORY_OFFSET = 9;
 
@@ -32,10 +33,11 @@ class Form extends Component {
       <option key={idx} value={idx+CATEGORY_OFFSET}> {category} </option>
     ));
     return (
-      <div className='container'>
+      <div className='container personalizeForm'>
+        <h1> PERSONALIZE YOUR QUIZ </h1>
         <form onSubmit = {this.handleSubmit} className='form-horizontal'>
           <div className='form-group'>
-            <label className="col-sm-2 control-label"> Questions </label>
+            <label className="formLabel control-label"> Questions </label>
             <input className='form-control'
                    type = "number"
                    min = '1'
@@ -46,7 +48,7 @@ class Form extends Component {
             />
           </div>
           <div className='form-group'>
-            <label className="col-sm-2 control-label"> Category </label>
+            <label className="formLabel control-label"> Category </label>
             <select name='category'
                     className="form-control col-sm-10"
                     onChange = {this.handleChange} >
@@ -54,7 +56,7 @@ class Form extends Component {
             </select>
           </div>
           <div className='form-group'>
-            <label className="col-sm-2 control-label"> Difficulty </label>
+            <label className="formLabel control-label"> Difficulty </label>
             <select name='difficulty'
                     className="form-control col-sm-10"
                     onChange = {this.handleChange} >
@@ -63,8 +65,8 @@ class Form extends Component {
               <option value='hard'> Hard </option>
             </select>
           </div>
-            <div className='form-group'>
-              <label className="col-sm-2 control-label"> "Type of Questions" </label>
+            <div className='formLabel form-group'>
+              <label className="formLabel control-label"> "Type of Questions" </label>
               <select name='type'
                       className="form-control col-sm-10"
                       onChange = {this.handleChange} >
@@ -72,7 +74,7 @@ class Form extends Component {
                 <option value='boolean'> True/False </option>
               </select>
             </div>
-            <button> Go Test Yourself </button>
+            <button className='btn-form btn btn-block'> Go Test Yourself </button>
         </form>
       </div>
     );

@@ -22,3 +22,16 @@
     transform: rotate(360deg);
   }
 }
+
+.question-statement {
+  background: linear-gradient(to right, gold, darkorange);
+  height: 150px;
+  color: #fff;
+  border-radius: 40%;
+  text-align: center;
+}
+
+.favorite {
+  float: right;
+  width: 300px;
+}

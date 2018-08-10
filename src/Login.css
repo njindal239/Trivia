@@ -1,0 +1,27 @@
+.loginForm {
+  margin-top: 100px;
+  max-width: 400px;
+}
+
+.panel {
+  border-color: #222;
+}
+
+.panel-default .panel-heading {
+  background-color: #222;
+  color: #fff;
+}
+
+.panel-title {
+  text-align: center;
+}
+
+.btn-def {
+  background-color: #222;
+  color: #fff;
+}
+
+.incorrectLogin {
+  color: #ff0000;
+  font-size: 16px;
+}

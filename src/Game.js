@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TriviaDashboard from './TriviaDashboard';
+import './Game.css';
 
 const GAME_TYPE = {
   NEW_GAME: 0,
@@ -29,16 +30,20 @@ class Game extends Component {
     const {gameType} = this.state;
     let componentToRender = null;
     if (gameType === null) {
-      componentToRender = [<button key='1' onClick={this.newGame}> Play New Game </button>,
-      <button key='2' onClick={this.favoritesGame}> Play with Favorites </button>];
+      componentToRender =
+      <div className='buttons'>
+        <button className='box' onClick={this.newGame}> Play New Game </button>
+        <button className='box' onClick={this.favoritesGame}> Favorites Quiz </button>
+        <button className='box' onClick={this.newGame}> Check Game Life </button>
+        <button className='box' onClick={this.newGame}> LeaderBoard </button>
+      </div>
     } else if (gameType === GAME_TYPE.NEW_GAME) {
-
-      componentToRender = <TriviaDashboard user={this.props.user} favGame={false} />
+      componentToRender = <TriviaDashboard className='TriviaDashboard' user={this.props.user} favGame={false} />
     } else if (gameType === GAME_TYPE.FAVORITES_GAME) {
-      componentToRender = <TriviaDashboard user={this.props.user} favGame={true} />
+      componentToRender = <TriviaDashboard className='TriviaDashboard' user={this.props.user} favGame={true} />
     }
     return (
-      <div>
+      <div className = 'container'>
         {componentToRender}
       </div>
     );

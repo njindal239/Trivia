@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import './OptionsForm.css';
 
 class OptionsForm extends Component {
   static defaultProps = {
@@ -26,20 +27,26 @@ class OptionsForm extends Component {
 
   render() {
     const options = this.props.options.map((option, idx) => (
-      <label className = "radio radio-inline" key = {idx}>
-        <input key = {idx} type='radio'
-                           name= {option}
+      <div key = {idx} className="select-now">
+        <input type='radio'
+                           name= "option"
                            value={option}
                            checked={this.state.selectedOption === option}
                            onChange={this.handleChange}
         />
-        {ReactHtmlParser(option)}
-      </label>
+        <label className = "radio radio-inline" key = {idx}>
+          {ReactHtmlParser(option)}
+        </label>
+      </div>
     ));
     return (
       <form onSubmit={this.handleSubmit}>
-        {options}
-        <button type='submit' className='btn btn-success'> Submit </button>
+        <div className='selectAnswer'>
+          {options}
+        </div>
+        <div>
+        <button type='submit' className='btn btn-success btn-block'> Submit </button>
+        </div>
       </form>
     );
   }

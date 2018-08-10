@@ -111,7 +111,6 @@ class GamePlay extends Component {
     }
     return (
       <div>
-        <h1> Game Play mode </h1>
         {componentToRender}
       </div>
     );

@@ -41,15 +41,19 @@ class Question extends Component {
     this.state.favStatus ?  appliedStyle = favStyle : appliedStyle = {};
     const quesForm = ques ?
       <div>
-        <button style={appliedStyle} onClick={this.addFavorite} type='buttton'> Favorite </button>
-        <h3> {ReactHtmlParser(ques.question)} </h3>
+        <div className="question-statement">
+          <h3> {ReactHtmlParser(ques.question)} </h3>
+        </div>
+        <div>
+          <button className='favorite' style={appliedStyle} onClick={this.addFavorite} type='buttton'> Favorite </button>
+        </div>
         <OptionsForm checkAnswer={this.checkAnswer} options={this.makeOptions()} />
       </div> :
       <div className = 'container1'>
         <div className = 'loader'> </div>
       </div>;
     return(
-      <div>
+      <div className="question">
         {quesForm}
       </div>
     );

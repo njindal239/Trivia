@@ -1,0 +1,49 @@
+.selectAnswer {
+     list-style-type:none;
+     margin:25px auto;
+     padding:0;
+}
+
+.selectAnswer .select-now {
+    float:left;
+    margin:0 5px 0 0;
+    width:200px;
+    height:80px;
+    position:relative;
+
+}
+
+.selectAnswer label, .selectAnswer input {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.selectAnswer input[type="radio"] {
+    opacity:0.011;
+    z-index:100;
+}
+
+.selectAnswer input:checked + label {
+    background:yellow;
+}
+
+.selectAnswer label {
+     padding:5px;
+     border:1px solid #CCC;
+     cursor:pointer;
+     z-index:90;
+     text-align: center;
+     vertical-align: middle;
+     border-radius: 40%;
+     /* background: red; */
+     /* linear-gradient(to right, gold, darkorange); */
+     color: #fff;
+}
+
+.selectAnswer label:hover {
+     background:#DDD;
+}

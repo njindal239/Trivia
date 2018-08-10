@@ -1,0 +1,22 @@
+.signupForm {
+  margin-top: 75px;
+  max-width: 400px;
+}
+
+.panel {
+  border-color: #222;
+}
+
+.panel-default .panel-heading {
+  background-color: #222;
+  color: #fff;
+}
+
+.panel-title {
+  text-align: center;
+}
+
+.btn-def {
+  background-color: #222;
+  color: #fff;
+}

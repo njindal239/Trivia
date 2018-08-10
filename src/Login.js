@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -29,17 +30,17 @@ class Login extends Component {
   render() {
     let {username, password, invalid} = this.state;
     return (
-      <div className = 'container'>
-        {invalid ? <p> {invalid} </p> : null}
-        <div className = 'panel panel-primary'>
+      <div className = 'container loginForm'>
+        {invalid ? <p class="incorrectLogin"> {invalid} </p> : null}
+        <div className = 'panel panel-default'>
           <div className = 'panel-heading'>
             <h2 className = 'panel-title'> Log In Here </h2>
           </div>
           <div className = 'panel-body'>
-            <form onSubmit={this.handleSubmit} className = 'form-horizontal'>
+            <form onSubmit={this.handleSubmit}>
               <div className = 'form-group'>
-                <label className="col-sm-2 control-label">Username</label>
-                <div className="col-sm-10">
+
+                <div>
                   <input type="text"
                          className="form-control"
                          name='username'
@@ -51,8 +52,8 @@ class Login extends Component {
                 </div>
               </div>
               <div className = 'form-group'>
-                <label className="col-sm-2 control-label">Password</label>
-                <div className="col-sm-10">
+
+                <div>
                   <input type="password"
                          className="form-control"
                          name='password'
@@ -63,7 +64,7 @@ class Login extends Component {
                   />
                 </div>
               </div>
-              <button type='submit' className='btn btn-primary'> Log In </button>
+              <button class='submit' type='submit' className='btn btn-def btn-block'> Log In </button>
             </form>
           </div>
         </div>
