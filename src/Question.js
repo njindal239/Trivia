@@ -92,6 +92,14 @@ class Question extends Component {
 
     const quesForm = ques ?
       <div>
+        <div className='favButton'>
+          <button className='favorite btn btn-primary btn-block'
+                  style={appliedStyle}
+                  onClick={this.addFavorite}
+                  type='buttton'>
+              <i className="fab fa-gratipay fa-2x"> </i>
+          </button>
+        </div>
         <div className="question-statement">
           <h3 className="question-title"> {ReactHtmlParser(ques.question)} </h3>
         </div>
@@ -100,14 +108,6 @@ class Question extends Component {
                        options={this.makeOptions()}
                        optionProps={this.state.optionProps}
           />
-        </div>
-        <div>
-          <button className='favorite btn btn-primary btn-block'
-                  style={appliedStyle}
-                  onClick={this.addFavorite}
-                  type='buttton'>
-              <i className="fab fa-gratipay">ADD TO FAVORITES </i>
-          </button>
         </div>
       </div> :
       <div className = 'container1'>

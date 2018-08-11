@@ -24,7 +24,7 @@
 }
 
 .question-statement {
-  margin-top: 30px;
+  margin-top: 0px;
   width: 100%;
   background: linear-gradient(to right, gold, darkorange);
   height: 150px;
@@ -40,12 +40,13 @@
   vertical-align: center;
 }
 
-.favorite {
-  background: #222;
-  height: 60px;
-  font-size: 16px;
+.favButton {
+  margin: 0px auto;
 }
 
-i {
-  font-size: 26px;
+.favorite {
+  background: green;
+  height: 75px;
+  font-size: 22px;
+  width: 75px;
 }

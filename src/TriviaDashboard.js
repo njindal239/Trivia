@@ -29,6 +29,7 @@ class TriviaDashboard extends Component {
 
   goHome() {
     this.setState({gameState: GAME_STATE.NOT_STARTED});
+    this.props.goHome();
   }
 
   gameOver(gameStatus) {

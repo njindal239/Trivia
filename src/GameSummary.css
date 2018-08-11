@@ -1,0 +1,33 @@
+.game-summary {
+  color: #fff;
+  font-size: 2em;
+}
+
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.score-summary {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.score-summary h2 {
+  font-size: 1.5em;
+}
+
+.score-summary ul {
+  list-style: none;
+}
+
+.score-summary ul li {
+  text-decoration: none;
+}
+
+.goHome {
+  margin-top: 50px;
+  background: #222;
+  height: 50px;
+  font-size: 22px;
+}

@@ -12,9 +12,14 @@ class Game extends Component {
     super(props);
     this.newGame = this.newGame.bind(this);
     this.favoritesGame = this.favoritesGame.bind(this);
+    this.goHome = this.goHome.bind(this);
     this.state = {
       gameType: null
     }
+  }
+
+  goHome() {
+    this.setState({gameType: null});
   }
 
   newGame() {
@@ -38,9 +43,17 @@ class Game extends Component {
         <button className='box' onClick={this.newGame}> LeaderBoard </button>
       </div>
     } else if (gameType === GAME_TYPE.NEW_GAME) {
-      componentToRender = <TriviaDashboard className='TriviaDashboard' user={this.props.user} favGame={false} />
+      componentToRender = <TriviaDashboard className='TriviaDashboard'
+                                           user={this.props.user}
+                                           favGame={false}
+                                           goHome={this.goHome}
+      />
     } else if (gameType === GAME_TYPE.FAVORITES_GAME) {
-      componentToRender = <TriviaDashboard className='TriviaDashboard' user={this.props.user} favGame={true} />
+      componentToRender = <TriviaDashboard className='TriviaDashboard'
+                                           user={this.props.user}
+                                           favGame={true}
+                                           goHome={this.goHome}
+      />
     }
     return (
       <div className = 'container'>

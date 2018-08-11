@@ -1,0 +1,16 @@
+.giveFeedback {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.giveFeedback h3 {
+  text-align: center;
+  display: inline;
+  font-size: 30px;
+  color: #fff;
+}
+
+.giveFeedback button {
+  margin-right: 150px;
+  width: 200px;
+}

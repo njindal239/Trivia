@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
+import './CorrectAnswer.css';
 
 const CorrectAnswer = ({answer, nextQuestion}) => {
   return (
-    <div>
-      <h3> Correct! The right answer is: {ReactHtmlParser(answer)} </h3>
-      <button onClick={nextQuestion} type='button'> Next </button>
+    <div className="giveFeedback">
+      <h3> Congrats! That is Correct! </h3>
+      <button className='btn btn-success' onClick={nextQuestion} type='button'> Proceed </button>
     </div>
 );
 }

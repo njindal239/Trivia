@@ -78,10 +78,6 @@ class OptionsForm extends Component {
         } else if (idx === Number(this.state.selectedIndex)) {
           style = {background: 'red'};
         }
-      } else {
-        if (idx === Number(this.state.selectedIndex)) {
-          style = {backgroundColor: 'brown'};
-        }
       }
       return (
         <div key = {idx} className="select-now">

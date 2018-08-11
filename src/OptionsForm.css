@@ -1,7 +1,7 @@
 .options {
   margin-top: 50px;
   width: 100%;
-  height: 200px;
+  height: 130px;
 }
 
 .selectAnswer {
@@ -9,15 +9,17 @@
    height: 200px;
    list-style-type:none;
    margin:25px auto;
+   display: table;
 }
 
 .selectAnswer .select-now {
     float:left;
-    margin:0 5px 0 0;
+    margin:0 20px 0 0;
     width:200px;
     height:80px;
     position:relative;
-    display: table;
+    display: table-cell;
+    text-align: center;
 }
 
 .selectAnswer label, .selectAnswer input {
