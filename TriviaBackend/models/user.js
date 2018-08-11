@@ -15,7 +15,7 @@ const UserSchema = mongoose.Schema({
     games_played: {type: Number, default: 0},
     questions_attempted: {type: Number, default: 0},
     questions_correct: {type: Number, default: 0},
-    question_incorrect: {type: Number, default: 0},
+    questions_incorrect: {type: Number, default: 0},
     net_points: {type: Number, default: 0},
     max_points: {type: Number, default: 0},
     percentage: {type: Number, default: 0}

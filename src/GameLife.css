@@ -1,0 +1,15 @@
+.gameLife {
+  color: #fff;
+  font-size: 2em;
+}
+
+h1 {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.score-summary {
+  margin-top: 60px;
+  text-align: center;
+  list-style: none;
+}

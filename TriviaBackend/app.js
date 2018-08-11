@@ -30,7 +30,11 @@ app.route('/login')
 app.route('/register')
   .post(userHelpers.registerUser);
 
+app.route('/users')
+	.get(userHelpers.getUsers);
+
 app.route('/users/:id')
+	.get(userHelpers.getUserGameLife)
 	.put(userHelpers.updateUserGameLife);
 
 app.route('/users/:id/questions')

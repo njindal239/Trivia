@@ -21,10 +21,6 @@ class TriviaDashboard extends Component {
     this.startGame = this.startGame.bind(this);
     this.gameOver = this.gameOver.bind(this);
     this.goHome = this.goHome.bind(this);
-    // if (this.props.favGame) {
-    //   console.log("coming");
-    //   this.setState({gameState: GAME_STATE.STARTED});
-    // }
   }
 
   goHome() {
@@ -36,7 +32,7 @@ class TriviaDashboard extends Component {
     this.finalScores = gameStatus;
     this.setState({gameState: GAME_STATE.ENDED});
     console.log(this.props.user._id);
-    let url = 'http://localhost:3001/users/' + this.props.user._id;
+    let url = `http://localhost:3001/users/${this.props.user._id}`;
     console.log("Displaying final scores: ");
     console.log(this.finalScores);
     axios.put(url, {...this.finalScores})

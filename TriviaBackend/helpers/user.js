@@ -78,3 +78,27 @@ exports.updateUserGameLife = async (req, res, next) => {
     });
   }
 }
+
+exports.getUserGameLife = async (req, res, next) => {
+  try {
+    let user = await db.User.findById(req.params.id);
+    return res.json(user.gameLife);
+  } catch(err) {
+    return next({
+      status: 400,
+      message: err.message
+    })
+  }
+}
+
+exports.getUsers = async (req, res, next) => {
+  try {
+    let users = await db.User.find({});
+    return res.json(users);
+  } catch(err) {
+    return next({
+      status: 400,
+      message: err.message
+    })
+  }
+}
