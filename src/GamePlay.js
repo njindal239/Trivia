@@ -1,21 +1,12 @@
 import React, {Component} from 'react';
 import Question from './Question';
-import CorrectAnswer from './CorrectAnswer';
-import IncorrectAnswer from './IncorrectAnswer';
 import axios from 'axios';
-
-const QUESTIONSTATE = {
-  QUESTION: 0,
-  CORRECT: 1,
-  INCORRECT: 2
-}
 
 class GamePlay extends Component {
   constructor(props) {
     super(props);
     this.state = {
       questions: [],
-      gameState: QUESTIONSTATE.QUESTION,
       currentQuestionIndex: 0,
     }
     this.gameStatus = {
@@ -69,7 +60,6 @@ class GamePlay extends Component {
   }
 
   answerChecked(gotRight) {
-    this.setState({gameState: (gotRight ? QUESTIONSTATE.CORRECT : QUESTIONSTATE.INCORRECT)});
     if(gotRight) {
       this.gameStatus.correct_answers += 1;
       this.gameStatus.points += 10;
@@ -87,31 +77,20 @@ class GamePlay extends Component {
     } else {
       this.setState(prevState => ({
         currentQuestionIndex: prevState.currentQuestionIndex + 1,
-        gameState: QUESTIONSTATE.QUESTION
       }));
     }
   }
 
   render() {
-    const {gameState, questions, currentQuestionIndex} = this.state;
-    let componentToRender;
+    const {questions, currentQuestionIndex} = this.state;
     const currentQuestion = questions[currentQuestionIndex];
-    switch(gameState) {
-      case QUESTIONSTATE.QUESTION:
-        componentToRender = <Question addFavorite={this.addFavorite} answerChecked={this.answerChecked} ques={currentQuestion} />;
-        break;
-      case QUESTIONSTATE.CORRECT:
-        componentToRender = <CorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>;
-        break;
-      case QUESTIONSTATE.INCORRECT:
-        componentToRender = <IncorrectAnswer nextQuestion={this.nextQuestion} answer={currentQuestion.correct_answer}/>
-        break;
-      default:
-        // NOT POSSIBLE
-    }
     return (
-      <div>
-        {componentToRender}
+      <div className="gamePlay">
+        <Question addFavorite={this.addFavorite}
+                  nextQuestion={this.nextQuestion}
+                  answerChecked={this.answerChecked}
+                  ques={currentQuestion}
+        />
       </div>
     );
   }

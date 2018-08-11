@@ -24,14 +24,28 @@
 }
 
 .question-statement {
+  margin-top: 30px;
+  width: 100%;
   background: linear-gradient(to right, gold, darkorange);
   height: 150px;
   color: #fff;
   border-radius: 40%;
   text-align: center;
+  display: table;
+}
+
+.question-title {
+  vertical-align: middle;
+  display: table-cell;
+  vertical-align: center;
 }
 
 .favorite {
-  float: right;
-  width: 300px;
+  background: #222;
+  height: 60px;
+  font-size: 16px;
+}
+
+i {
+  font-size: 26px;
 }

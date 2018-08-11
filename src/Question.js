@@ -2,26 +2,51 @@ import React, {Component} from 'react';
 import shuffle from 'shuffle-array';
 import OptionsForm from './OptionsForm';
 import ReactHtmlParser from 'react-html-parser';
+import CorrectAnswer from './CorrectAnswer';
+import IncorrectAnswer from './IncorrectAnswer';
 import './Question.css';
+
+const QUESTIONSTATE = {
+  QUESTION: 0,
+  CORRECT: 1,
+  INCORRECT: 2
+}
 
 class Question extends Component {
 
   constructor(props) {
     super(props);
+    this.options = [];
     this.makeOptions = this.makeOptions.bind(this);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.addFavorite = this.addFavorite.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
     this.state = {
-      favStatus: false
+      favStatus: false,
+      questionState: QUESTIONSTATE.QUESTION,
+      optionProps: null
     }
   }
 
   checkAnswer(guess) {
     if (this.props.ques.correct_answer === guess) {
+      this.setState({
+        questionState: QUESTIONSTATE.CORRECT,
+        optionProps: {
+          isCorrect: this.props.ques.correct_answer === guess
+        }
+      });
       this.props.answerChecked(true);
     } else {
+      this.setState({
+        questionState: QUESTIONSTATE.INCORRECT,
+        optionProps: {
+          isCorrect: this.props.ques.correct_answer === guess
+        }
+      });
       this.props.answerChecked(false);
     }
+
   }
 
   addFavorite(e) {
@@ -30,31 +55,72 @@ class Question extends Component {
   }
 
   makeOptions() {
+    console.log(this.options);
+    if (this.options.length !== 0) {
+      console.log("here");
+      return this.options;
+    }
     const quesObject = this.props.ques;
-    return shuffle([...quesObject.incorrect_answers, quesObject.correct_answer]);
+    this.options =  shuffle([...quesObject.incorrect_answers, quesObject.correct_answer]);
+    return this.options;
+  }
+
+  nextQuestion() {
+    this.setState({questionState: QUESTIONSTATE.QUESTION, optionProps: null});
+    this.options = [];
+    this.props.nextQuestion();
   }
 
   render() {
     const {ques} = this.props;
     let appliedStyle;
-    const favStyle = {backgroundColor: 'blue', color: 'white'};
+    const favStyle = {backgroundColor: '#ff4500', color: 'white'};
     this.state.favStatus ?  appliedStyle = favStyle : appliedStyle = {};
+    let componentToRender = null;
+    switch(this.state.questionState) {
+      case QUESTIONSTATE.QUESTION:
+        break;
+      case QUESTIONSTATE.CORRECT:
+        componentToRender = <CorrectAnswer nextQuestion={this.nextQuestion} answer={ques.correct_answer}/>;
+        break;
+      case QUESTIONSTATE.INCORRECT:
+        componentToRender = <IncorrectAnswer nextQuestion={this.nextQuestion} answer={ques.correct_answer}/>
+        break;
+      default:
+        // NOT POSSIBLE
+      }
+
     const quesForm = ques ?
       <div>
         <div className="question-statement">
-          <h3> {ReactHtmlParser(ques.question)} </h3>
+          <h3 className="question-title"> {ReactHtmlParser(ques.question)} </h3>
         </div>
         <div>
-          <button className='favorite' style={appliedStyle} onClick={this.addFavorite} type='buttton'> Favorite </button>
+          <OptionsForm checkAnswer={this.checkAnswer}
+                       options={this.makeOptions()}
+                       optionProps={this.state.optionProps}
+          />
         </div>
-        <OptionsForm checkAnswer={this.checkAnswer} options={this.makeOptions()} />
+        <div>
+          <button className='favorite btn btn-primary btn-block'
+                  style={appliedStyle}
+                  onClick={this.addFavorite}
+                  type='buttton'>
+              <i className="fab fa-gratipay">ADD TO FAVORITES </i>
+          </button>
+        </div>
       </div> :
       <div className = 'container1'>
         <div className = 'loader'> </div>
       </div>;
     return(
-      <div className="question">
-        {quesForm}
+      <div>
+        <div className="question">
+          {quesForm}
+        </div>
+        <div>
+          {componentToRender}
+        </div>
       </div>
     );
   }
