@@ -70,7 +70,7 @@ class Game extends Component {
     } else if (gameType === GAME_TYPE.GAME_LIFE) {
       componentToRender = <GameLife user={this.props.user}/>
     } else if (gameType === GAME_TYPE.LEADERBOARD) {
-      componentToRender = <Leaderboard />
+      componentToRender = <Leaderboard user={this.props.user}/>
     }
     return (
       <div className = 'container'>
