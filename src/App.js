@@ -4,25 +4,25 @@ import {Switch, Route, Redirect} from 'react-router-dom';
 import Login from './Login';
 import Signup from './Signup';
 import Navbar from './Navbar';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    console.log("Hi");
     this.state = {
       isAuthenticated: false,
       user: {}
     };
     this.loggedIn = this.loggedIn.bind(this);
     this.componentWillMount = this.componentWillMount.bind(this);
-    // this.logout = this.logout.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   componentWillMount() {
     this.setState({
-      isAuthenticated: sessionStorage.getItem('isAuthenticated') || false,
-      user: JSON.parse(sessionStorage.getItem('user')) || {}
+      isAuthenticated: (sessionStorage.getItem('isAuthenticated') === "true"),
+      user: JSON.parse(sessionStorage.getItem('user'))
     });
   }
 
@@ -32,11 +32,15 @@ class App extends Component {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
-  // logout() {
-  //   this.setState({isAuthenticated: false, user: {}});
-  //   sessionStorage.setItem('isAuthenticated', false);
-  //   sessionStorage.setItem('user', JSON.stringify({}));
-  // }
+  logout() {
+    axios.post('http://localhost:3001/logout')
+    .then(res => res.data)
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+    sessionStorage.setItem('isAuthenticated', false);
+    sessionStorage.setItem('user', JSON.stringify({}));
+    this.setState({isAuthenticated: false, user: {}});
+  }
 
   isLoggedIn = () => {
     return this.state.isAuthenticated;
@@ -45,7 +49,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar isLoggedIn={this.isLoggedIn}/>
+        <Navbar isLoggedIn={this.isLoggedIn} logout={this.logout}/>
         <Switch>
           <Route path='/' exact render = {props => (
             this.isLoggedIn() ?

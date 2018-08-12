@@ -41,6 +41,10 @@ app.route('/users/:id/questions')
 	.post(questionHelpers.addQuestion)
 	.get(questionHelpers.getQuestions);
 
+app.post('/logout', (req, res, next) => {
+	res.status(200).json("Logged out Successfully");
+});
+
 app.use((req, res, next) => {
   let err = new Error("Not Found!");
   err.status = 404;

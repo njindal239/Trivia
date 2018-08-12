@@ -19,9 +19,8 @@ class Leaderboard extends Component {
     let url = 'http://localhost:3001/users';
     axios.get(url)
     .then(res => res.data)
-    .then(users => this.setState({users: users}, () => {
-      this.state.users.sort((a, b) => b.gameLife.net_points - a.gameLife.net_points);
-    }))
+    .then(users => users.sort((a, b) => b.gameLife.net_points - a.gameLife.net_points))
+    .then(users => this.setState({users: users}))
     .catch(err => console.log(err.response.data.error));
   }
 
